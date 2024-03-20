@@ -1,3 +1,5 @@
+import 'package:catch_words/utils/config.dart';
+import 'package:catch_words/widgets/overlay_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,18 +24,32 @@ class _GameAppState extends State<GameApp> {
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
                 Color(0xFFA9D6E5),
                 Color(0xFFF2E8CF),
-              ])),
+              ],
+            ),
+          ),
           child: const SafeArea(
             child: Padding(
               padding: EdgeInsets.all(16),
               child: Center(
-                child: Column(),
+                child: Column(
+                  children: [
+                    Expanded(
+                        child: FittedBox(
+                      child: SizedBox(
+                        width: gameWidth,
+                        height: gameHeight,
+                        child: OverlayScreen(
+                            title: "Tap to play", subtitle: "Enjoy the game"),
+                      ),
+                    ))
+                  ],
+                ),
               ),
             ),
           ),
