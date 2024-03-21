@@ -1,5 +1,7 @@
+import 'package:catch_words/features/catch_words.dart';
 import 'package:catch_words/utils/config.dart';
 import 'package:catch_words/widgets/overlay_screen.dart';
+import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,6 +13,14 @@ class GameApp extends StatefulWidget {
 }
 
 class _GameAppState extends State<GameApp> {
+  late final CatchWords game;
+
+  @override
+  void initState() {
+    super.initState();
+    game = CatchWords();
+  }
+
   @override
   Widget build(context) {
     return MaterialApp(
@@ -33,9 +43,9 @@ class _GameAppState extends State<GameApp> {
               ],
             ),
           ),
-          child: const SafeArea(
+          child: SafeArea(
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: Center(
                 child: Column(
                   children: [
@@ -44,8 +54,24 @@ class _GameAppState extends State<GameApp> {
                       child: SizedBox(
                         width: gameWidth,
                         height: gameHeight,
-                        child: OverlayScreen(
-                            title: "Tap to play", subtitle: "Enjoy the game"),
+                        child: GameWidget(
+                          game: game,
+                          overlayBuilderMap: {
+                            PlayState.welcome.name: (context, game) =>
+                                const OverlayScreen(
+                                    title: "Tap to play",
+                                    subtitle: "Enjoy the game"),
+                            PlayState.gameOver.name: (context, game) =>
+                                const OverlayScreen(
+                                  title: "Game Over",
+                                  subtitle: "Try again!",
+                                ),
+                            PlayState.won.name: (context, game) =>
+                                const OverlayScreen(
+                                    title: "You won!",
+                                    subtitle: "Кангратулейшнс!")
+                          },
+                        ),
                       ),
                     ))
                   ],
