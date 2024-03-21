@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class PlayArea extends RectangleComponent with HasGameReference<CatchWords> {
   PlayArea()
       : super(
-          paint: Paint()..color = Colors.amber,
+          paint: Paint()..color = Colors.yellowAccent,
           children: [RectangleHitbox()],
         );
 

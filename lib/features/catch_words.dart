@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:catch_words/components/play_area.dart';
+import 'package:catch_words/components/word.dart';
 import 'package:catch_words/utils/config.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
@@ -7,7 +9,7 @@ import 'package:flame/game.dart';
 
 enum PlayState { welcome, playing, gameOver, won }
 
-class CatchWords extends FlameGame with TapDetector {
+class CatchWords extends FlameGame with TapDetector, HasCollisionDetection {
   CatchWords()
       : super(
           camera: CameraComponent.withFixedResolution(
@@ -40,7 +42,8 @@ class CatchWords extends FlameGame with TapDetector {
 
     camera.viewfinder.anchor = Anchor.topLeft;
 
-    // world.add(PlayArea());
+    world.add(PlayArea());
+    world.add(Word());
 
     playState = PlayState.welcome;
   }
