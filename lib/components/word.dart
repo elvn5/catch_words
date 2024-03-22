@@ -1,14 +1,11 @@
-import 'dart:ui';
-
 import 'package:catch_words/features/catch_words.dart';
-import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 
-final style = const TextStyle(
+const style = TextStyle(
   color: Colors.black,
-  fontSize: 50.0, // Change the font size here
+  fontSize: 50.0,
 );
 final regular = TextPaint(style: style);
 
@@ -17,9 +14,12 @@ class Word extends TextComponent
   Word()
       : super(text: "Hello", position: Vector2(10, 10), textRenderer: regular);
 
+  final Vector2 velocity = Vector2(0, 10);
+
   @override
-  void onTapUp(TapUpEvent tapUpEvent) {
-    print(tapUpEvent);
+  void update(double dt) {
+    super.update(dt);
+    position += velocity * dt*10;
   }
 
   @override
