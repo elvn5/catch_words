@@ -41,10 +41,24 @@ class CatchWords extends FlameGame with TapDetector, HasCollisionDetection {
     super.onLoad();
 
     camera.viewfinder.anchor = Anchor.topLeft;
-
     world.add(PlayArea());
-    world.add(Word());
 
     playState = PlayState.welcome;
+  }
+
+  void startGame() {
+    if (playState == PlayState.playing) return;
+
+    world.removeAll(world.children.query<Word>());
+
+    playState = PlayState.playing;
+
+    world.add(Word());
+  }
+
+  @override
+  void onTap() {
+    super.onTap();
+    startGame();
   }
 }
